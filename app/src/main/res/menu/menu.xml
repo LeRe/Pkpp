@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/synchronize_db"
+        android:title="@string/synchronize_db" />
+    <item android:id="@+id/export_files"
+        android:title="@string/export_files" />
+    <item android:id="@+id/settings"
+        android:title="@string/settings" />
+</menu>
