@@ -83,7 +83,7 @@ public class ListPersonsActivity extends AppCompatActivity {
                 (new SynchronizeDbTask(getApplicationContext())).execute(new Object());
                 return true;
             case R.id.export_files:
-                (new ExportWizard(getApplicationContext())).createFile("aaa");
+                (new ExportWizard(getApplicationContext())).generateFiles(listPersons);
                 return true;
             case R.id.settings:
                 Toast.makeText(getApplicationContext(), "Настройки", Toast.LENGTH_SHORT).show();

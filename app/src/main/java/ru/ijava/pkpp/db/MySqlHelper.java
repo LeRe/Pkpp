@@ -23,8 +23,8 @@ public class MySqlHelper {
     //String PASSWORD = "df[vehrf12";
     // GRANT ALL PRIVILEGES ON phonebook.* TO monty IDENTIFIED BY 'df[vehrf12'
 
-    //private static final String URL = "jdbc:mysql://blader.pkpp.net:3306/phonebook";
-    private static final String URL = "jdbc:mysql://192.168.1.111:3306/phonebook?characterEncoding=cp1251";
+    private static final String URL = "jdbc:mysql://192.168.100.1:3306/phonebook";
+    //private static final String URL = "jdbc:mysql://192.168.1.111:3306/phonebook?characterEncoding=cp1251";
     //private static final String URL = "jdbc:mysql://192.168.0.38:3306/phonebook?characterEncoding=cp1251";
     private static final String USER = "monty";
     private static final String PASSWORD = "df[vehrf12";
