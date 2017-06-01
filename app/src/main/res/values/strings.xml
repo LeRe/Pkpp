@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pkpp</string>
+    <string name="app_name">ПкПП</string>
     <string name="synchronize_db">Синхронизация БД</string>
     <string name="settings">Настройки</string>
     <string name="export_files">Экспорт</string>

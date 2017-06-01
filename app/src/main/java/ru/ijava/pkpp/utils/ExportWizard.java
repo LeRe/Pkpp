@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import ru.ijava.pkpp.model.ListPersons;
 import ru.ijava.pkpp.model.Person;
@@ -53,6 +54,7 @@ public class ExportWizard {
             if(isExternalStorageWritable()) {
                 name = "test_file";
                 File file = new File(createExportFolder(), name);
+
                 try {
                     file.createNewFile();
                 } catch (IOException e) {
@@ -62,9 +64,19 @@ public class ExportWizard {
                 String str = "hello, test";
                 try {
                     FileOutputStream outputStream;
-                    outputStream = context.openFileOutput(file.getName(), context.MODE_APPEND);
-                    outputStream.write(str.getBytes());
+                    outputStream = new FileOutputStream(file);
+
+                    OutputStreamWriter myOutWriter = new OutputStreamWriter(outputStream);
+                    myOutWriter.append(str);
+                    myOutWriter.flush();
+                    myOutWriter.close();
+
+                    //outputStream = context.openFileOutput(file.getName(), context.MODE_APPEND);
+                    //outputStream.write(str.getBytes());
+                    outputStream.flush();
                     outputStream.close();
+
+                    Toast.makeText(context, "Файл создан", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
