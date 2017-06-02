@@ -17,7 +17,7 @@ import java.util.Comparator;
 import ru.ijava.pkpp.db.SQLiteHelper;
 import ru.ijava.pkpp.model.ListPersons;
 import ru.ijava.pkpp.model.Person;
-import ru.ijava.pkpp.utils.ExportWizard;
+import ru.ijava.pkpp.utils.ExportTask;
 
 /**
  * Created by rele on 5/26/17.
@@ -83,7 +83,7 @@ public class ListPersonsActivity extends AppCompatActivity {
                 (new SynchronizeDbTask(getApplicationContext())).execute(new Object());
                 return true;
             case R.id.export_files:
-                (new ExportWizard(getApplicationContext())).generateFiles(listPersons);
+                (new ExportTask(getApplicationContext())).execute(listPersons);
                 return true;
             case R.id.settings:
                 Toast.makeText(getApplicationContext(), "Настройки", Toast.LENGTH_SHORT).show();
