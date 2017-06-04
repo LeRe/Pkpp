@@ -49,11 +49,7 @@ public class ExportTask  extends AsyncTask<ListPersons, Object, String> {
         if (isExternalStorageWritable()) {
             File file = new File(createExportFolder(), name);
 
-            if (file.exists()) {
-                file.delete();
-            }
-
-            //TODO Проверить выдачу разрешения на доступ к записи во внешнюю память и ели отсутствует сделать запрос прав
+            if (file.exists()) { file.delete(); }
 
             try {
                 file.createNewFile();

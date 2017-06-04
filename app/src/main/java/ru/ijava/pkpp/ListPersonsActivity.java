@@ -1,7 +1,11 @@
 package ru.ijava.pkpp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,14 +39,15 @@ import ru.ijava.pkpp.utils.ExportTask;
  *
  */
 public class ListPersonsActivity extends AppCompatActivity {
-    ListPersons listPersons;
+    private ListPersons listPersons;
+    private final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_persons);
 
-        SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
         listPersons = sqLiteHelper.getAllPersons();
 
         Collections.sort(listPersons.getPersons(),
@@ -80,16 +85,42 @@ public class ListPersonsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.synchronize_db:
-                (new SynchronizeDbTask(getApplicationContext())).execute(new Object());
+                (new SynchronizeDbTask(this)).execute(new Object());
                 return true;
             case R.id.export_files:
-                (new ExportTask(getApplicationContext())).execute(listPersons);
+                int permissionCheck = ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+                if(permissionCheck != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                }
+                else {
+                    (new ExportTask(this)).execute(listPersons);
+                }
                 return true;
             case R.id.settings:
-                Toast.makeText(getApplicationContext(), "Настройки", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Настройки", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    (new ExportTask(this)).execute(listPersons);
+                }
+                return;
+            }
         }
     }
 }

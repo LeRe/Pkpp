@@ -2,6 +2,7 @@ package ru.ijava.pkpp.model;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import ru.ijava.pkpp.R;
 
 
 /**
@@ -86,7 +89,15 @@ public class ListPersons implements ListAdapter {
         TextView tvPosition = new TextView(mContext);
         tvPosition.setText(persons.get(position).getPosition());
 
-        LinearLayout linearLayout = new LinearLayout(mContext);
+        if (Build.VERSION.SDK_INT < 23) {
+            tvName.setTextAppearance(mContext, R.style.NameFont);
+            tvPosition.setTextAppearance(mContext, R.style.PositionFont);
+        } else {
+            tvName.setTextAppearance(R.style.NameFont);
+            tvPosition.setTextAppearance(R.style.PositionFont);
+        }
+
+        LinearLayout linearLayout = new LinearLayout(mContext, null, R.style.ListLayout);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.setHorizontalGravity(Gravity.LEFT);
 
