@@ -126,7 +126,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
     private void insertDB(Person person, SQLiteDatabase db) {
-
         ContentValues values = new ContentValues();
 
         values.put(PersonsTable._ID, person.getId());

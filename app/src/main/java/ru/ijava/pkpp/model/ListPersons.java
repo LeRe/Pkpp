@@ -83,28 +83,16 @@ public class ListPersons implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView tvName = new TextView(mContext);
-        tvName.setText(persons.get(position).getFullName());
 
-        TextView tvPosition = new TextView(mContext);
+        View view = View.inflate(mContext, R.layout.view_list_persons, null);
+
+        TextView tvName = (TextView) view.findViewById(R.id.namePerson);
+        TextView tvPosition = (TextView) view.findViewById(R.id.positionPerson);
+
+        tvName.setText(persons.get(position).getFullName());
         tvPosition.setText(persons.get(position).getPosition());
 
-        if (Build.VERSION.SDK_INT < 23) {
-            tvName.setTextAppearance(mContext, R.style.NameFont);
-            tvPosition.setTextAppearance(mContext, R.style.PositionFont);
-        } else {
-            tvName.setTextAppearance(R.style.NameFont);
-            tvPosition.setTextAppearance(R.style.PositionFont);
-        }
-
-        LinearLayout linearLayout = new LinearLayout(mContext, null, R.style.ListLayout);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setHorizontalGravity(Gravity.LEFT);
-
-        linearLayout.addView(tvName);
-        linearLayout.addView(tvPosition);
-
-        return linearLayout;
+        return view;
     }
 
     @Override

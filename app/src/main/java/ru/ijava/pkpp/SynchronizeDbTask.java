@@ -20,7 +20,7 @@ public class SynchronizeDbTask extends AsyncTask<Object, Object, String> {
     }
 
     @Override
-    protected String doInBackground(Object[] params) {
+    protected String doInBackground(Object... params) {
         StringBuilder log = new StringBuilder();
 
         MySqlHelper mySqlHelper = new MySqlHelper();

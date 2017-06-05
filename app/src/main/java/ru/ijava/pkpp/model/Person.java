@@ -7,6 +7,8 @@ import java.io.Serializable;
  */
 public class Person implements Serializable {
 
+    public static final long serialVersionUID = 1;
+
     private int id;
     private String fullName;
     private String position;
