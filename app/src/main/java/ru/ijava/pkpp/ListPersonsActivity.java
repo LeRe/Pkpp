@@ -22,6 +22,7 @@ import ru.ijava.pkpp.db.SQLiteHelper;
 import ru.ijava.pkpp.model.ListPersons;
 import ru.ijava.pkpp.model.Person;
 import ru.ijava.pkpp.utils.ExportTask;
+import ru.ijava.pkpp.utils.PersonParser;
 
 /**
  * Created by rele on 5/26/17.

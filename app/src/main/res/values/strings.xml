@@ -3,4 +3,10 @@
     <string name="synchronize_db">Синхронизация БД</string>
     <string name="settings">Настройки</string>
     <string name="export_files">Экспорт</string>
+    <string name="caption_email">Адрес эл.почты:</string>
+    <string name="caption_mobile">Телефон мобильный:</string>
+    <string name="caption_dect">Телефон dect:</string>
+    <string name="caption_phone">Телефон стационарный:</string>
+    <string name="caption_position">Должность:</string>
+    <string name="caption_name">Имя:</string>
 </resources>
