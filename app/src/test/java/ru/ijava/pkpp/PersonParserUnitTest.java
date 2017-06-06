@@ -78,7 +78,7 @@ public class PersonParserUnitTest {
 
 
     @Test
-    public void isNameSurnamePatronymic_isCorrect()  {
+    public void isNameSurnamePatronymic_isCorrect() throws Exception {
         PersonParser personParser = new PersonParser();
 
         for (int i = 0; i < rightFullName.length; i++) {
