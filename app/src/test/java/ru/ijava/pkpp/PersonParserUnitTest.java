@@ -6,7 +6,6 @@ import ru.ijava.pkpp.utils.PersonParser;
 
 import static org.junit.Assert.*;
 
-
 /**
  * Created by levchenko on 06.06.2017.
  */
@@ -75,8 +74,7 @@ public class PersonParserUnitTest {
             "Дежурный диспетчер брошюровочного цеха", "Механик 10 цеха", "Дежурный сантехник", "Охрана (КПП-Каскад)", "Дежурный грузчик СВХ", "Водитель погрузчика"
     };
 
-
-
+/*
     @Test
     public void isNameSurnamePatronymic_isCorrect() throws Exception {
         PersonParser personParser = new PersonParser();
@@ -89,7 +87,29 @@ public class PersonParserUnitTest {
             assertFalse(personParser.isNameSurnamePatronymic(failFullName[i]));
         }
     }
+*/
 
+    @Test
+    public void isCorrectNameSurnamePatronymic_isCorrect() {
+        String fullName = "Абрамова Анна Евгеньевна";
+        assertTrue(new PersonParser().isCorrectNameSurnamePatronymic(fullName));
+    }
+
+    @Test
+    public void wordCount_isCorrect() {
+        assertEquals(3, new PersonParser().wordCount(rightFullName[2]));
+    }
+
+    @Test
+    public void ParseFullName_isCorrect() {
+        String fullName = "Абрамова Анна Евгеньевна";
+
+        assertEquals("Абрамова", new PersonParser().getSurname(fullName));
+        assertEquals("Анна", new PersonParser().getName(fullName));
+        assertEquals("Евгеньевна", new PersonParser().getPatronymic(fullName));
+        assertEquals("А", new PersonParser().getNameLetter(fullName));
+        assertEquals("Е", new PersonParser().getPatronymicLetter(fullName));
+    }
 
 }
 

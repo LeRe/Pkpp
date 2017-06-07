@@ -2,6 +2,8 @@ package ru.ijava.pkpp.utils;
 
 import android.util.Log;
 
+import java.util.StringTokenizer;
+
 import ru.ijava.pkpp.model.ListPersons;
 import ru.ijava.pkpp.model.Person;
 
@@ -22,17 +24,46 @@ public class PersonParser {
         //for (Person person : listPersons.getPersons()) {
         //    Log.i("RELE", person.getFullName());
         //}
-
-
-
     }
 
-    public boolean isNameSurnamePatronymic(String fullName) {
+    public int wordCount(String str) {
+        StringTokenizer stringTokenizer = new StringTokenizer(str);
+        return stringTokenizer.countTokens();
+    }
+
+    public String getSurname(String fullName) {
+        StringTokenizer stringTokenizer = new StringTokenizer(fullName);
+
+        return stringTokenizer.nextToken();
+    }
+
+    public String getName(String fullName) {
+        StringTokenizer stringTokenizer = new StringTokenizer(fullName);
+        stringTokenizer.nextToken();
+        return stringTokenizer.nextToken();
+    }
+
+    public String getPatronymic(String fullName) {
+        StringTokenizer stringTokenizer = new StringTokenizer(fullName);
+        stringTokenizer.nextToken();
+        stringTokenizer.nextToken();
+        return stringTokenizer.nextToken();
+    }
+
+    public String getNameLetter(String fullName) {
+        return getName(fullName).trim().substring(0, 1);
+    }
+
+    public String getPatronymicLetter(String fullName) {
+        return getPatronymic(fullName).trim().substring(0, 1);
+    }
+
+    public boolean isCorrectNameSurnamePatronymic(String fullName) {
         boolean result = false;
 
-
-        result = true;
-
+        if (wordCount(fullName) == 3) {
+            result = true;
+        }
 
         return result;
     }
