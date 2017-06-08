@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ru.ijava.pkpp.R;
+import ru.ijava.pkpp.utils.PersonParser;
 
 
 /**
@@ -89,7 +90,16 @@ public class ListPersons implements ListAdapter {
         TextView tvName = (TextView) view.findViewById(R.id.namePerson);
         TextView tvPosition = (TextView) view.findViewById(R.id.positionPerson);
 
-        tvName.setText(persons.get(position).getFullName());
+        PersonParser personParser = new PersonParser(persons.get(position).getFullName());
+
+        String displayName;
+        if (personParser.isCorrectNameSurnamePatronymic()) {
+            displayName = personParser.getShortName();
+        }
+        else {
+            displayName = persons.get(position).getFullName();
+        }
+        tvName.setText(displayName);
         tvPosition.setText(persons.get(position).getPosition());
 
         return view;

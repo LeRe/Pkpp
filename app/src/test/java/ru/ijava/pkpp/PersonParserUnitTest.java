@@ -9,7 +9,6 @@ import static org.junit.Assert.*;
 /**
  * Created by levchenko on 06.06.2017.
  */
-
 public class PersonParserUnitTest {
 
     String[]  rightFullName = {
@@ -51,7 +50,7 @@ public class PersonParserUnitTest {
             "Рой Вячеслав Олегович", "Ковалева Эльвира Игоревна", "Чуйко Светлана Валерьевна", "Кошелев Анатолий Семенович",
             "Вартанян Нерсес Арташесович", "Рогозин Андрей Вячеславович", "Симонов Михаил Валентинович",
             "Абрамова Анна Евгеньевна", "Левченко Роман Петрович", "Симонова Екатерина Дмитреевна", "Долотова Маргарита Викторовна",
-            "Затонских Виктория Илларионовна", "Нещемная Валерия Валерьевна", "Сусленкова Анна Сергеевна", "Неупокоев Николай",
+            "Затонских Виктория Илларионовна", "Нещемная Валерия Валерьевна", "Сусленкова Анна Сергеевна", "Неупокоев Николай Отчество",
             "Михайлов Петр Владимирович", "Калжанов Анатолий Юрьевич", "Зубков Евгений Владимирович",
             "Сердюк Владимир Николаевич", "Разинкин Евгений Владимирович", "Долотов Алексей Владимирович",
             "Архипенков Олег Анатольевич", "Юмашев Алексей Александрович", "Ганеева Светлана Алиянусовна",
@@ -74,42 +73,75 @@ public class PersonParserUnitTest {
             "Дежурный диспетчер брошюровочного цеха", "Механик 10 цеха", "Дежурный сантехник", "Охрана (КПП-Каскад)", "Дежурный грузчик СВХ", "Водитель погрузчика"
     };
 
-/*
+
     @Test
     public void isNameSurnamePatronymic_isCorrect() throws Exception {
         PersonParser personParser = new PersonParser();
 
         for (int i = 0; i < rightFullName.length; i++) {
-            assertTrue(personParser.isNameSurnamePatronymic(rightFullName[i]));
+
+            System.out.println(i + " " + rightFullName[i]);
+            assertTrue(personParser.isCorrectNameSurnamePatronymic(rightFullName[i]));
         }
 
         for (int i = 0; i < failFullName.length; i++) {
-            assertFalse(personParser.isNameSurnamePatronymic(failFullName[i]));
+            System.out.println(i + " " + failFullName[i]);
+            assertFalse(personParser.isCorrectNameSurnamePatronymic(failFullName[i]));
         }
     }
-*/
+
+    @Test
+    public void dropBrackets_isCorrect() {
+        String fullName = "Михайлов Петр Владимирович";
+
+        assertEquals("Михайлов Петр Владимирович", new PersonParser().dropBrackets(fullName));
+    }
+
+
 
     @Test
     public void isCorrectNameSurnamePatronymic_isCorrect() {
-        String fullName = "Абрамова Анна Евгеньевна";
+        String fullName = "Михайлов Петр Владимирович";
         assertTrue(new PersonParser().isCorrectNameSurnamePatronymic(fullName));
     }
 
     @Test
     public void wordCount_isCorrect() {
-        assertEquals(3, new PersonParser().wordCount(rightFullName[2]));
+        String fullName = "Михайлов Петр Владимирович";
+
+        assertEquals(3, new PersonParser().wordCount(fullName));
     }
 
     @Test
-    public void ParseFullName_isCorrect() {
-        String fullName = "Абрамова Анна Евгеньевна";
+    public void parseFullName_isCorrect() {
+        String fullName = "Михайлов Петр Владимирович";
 
-        assertEquals("Абрамова", new PersonParser().getSurname(fullName));
-        assertEquals("Анна", new PersonParser().getName(fullName));
-        assertEquals("Евгеньевна", new PersonParser().getPatronymic(fullName));
-        assertEquals("А", new PersonParser().getNameLetter(fullName));
-        assertEquals("Е", new PersonParser().getPatronymicLetter(fullName));
+        assertEquals("Михайлов", new PersonParser().getSurname(fullName));
+        assertEquals("Петр", new PersonParser().getName(fullName));
+        assertEquals("Владимирович", new PersonParser().getPatronymic(fullName));
+        assertEquals("П", new PersonParser().getNameLetter(fullName));
+        assertEquals("В", new PersonParser().getPatronymicLetter(fullName));
     }
+
+    @Test
+    public void getShortName_isCorrect() {
+        String fullName = "Михайлов Петр Владимирович";
+
+        assertEquals("Михайлов П. В.", new PersonParser().getShortName(fullName));
+    }
+
+    @Test
+    public void isFirstLettersBig_isCorrect() {
+
+        assertTrue(new PersonParser().isFirstLettersBig("Архипенков Олег Анатольевич"));
+        assertTrue(new PersonParser().isFirstLettersBig("Харитоненко Наталия Николаевна"));
+        assertTrue(new PersonParser().isFirstLettersBig("Сусленкова Анна Сергеевна"));
+
+        assertFalse(new PersonParser().isFirstLettersBig("Дежурный электрик"));
+        assertFalse(new PersonParser().isFirstLettersBig("Оператор высотного хранения"));
+        assertFalse(new PersonParser().isFirstLettersBig("Дежурный диспетчер брошюровочного цеха"));
+    }
+
 
 }
 

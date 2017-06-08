@@ -15,6 +15,7 @@ import ru.ijava.pkpp.model.Person;
  *  2)
  */
 public class PersonParser {
+    String fullName;
 
     public PersonParser()//ListPersons listPersons)
     {
@@ -24,6 +25,10 @@ public class PersonParser {
         //for (Person person : listPersons.getPersons()) {
         //    Log.i("RELE", person.getFullName());
         //}
+    }
+
+    public PersonParser(String fullName) {
+        this.fullName = fullName;
     }
 
     public int wordCount(String str) {
@@ -58,17 +63,55 @@ public class PersonParser {
         return getPatronymic(fullName).trim().substring(0, 1);
     }
 
+    public String  getShortName() {
+        return getShortName(fullName);
+    }
+
+    public String getShortName(String fullName) {
+        StringBuilder sb = new StringBuilder();
+        fullName = dropBrackets(fullName);
+        if (isCorrectNameSurnamePatronymic(fullName)) {
+            sb.append(getSurname(fullName))
+                    .append(" ")
+                    .append(getNameLetter(fullName))
+                    .append(". ")
+                    .append(getPatronymicLetter(fullName))
+                    .append(".");
+        }
+        return sb.toString();
+    }
+
+    public String dropBrackets(String fullName) {
+        return fullName.replaceAll("\\(.+\\)", "");
+    }
+
+    public boolean isCorrectNameSurnamePatronymic() {
+        return isCorrectNameSurnamePatronymic(fullName);
+    }
+
     public boolean isCorrectNameSurnamePatronymic(String fullName) {
         boolean result = false;
 
-        if (wordCount(fullName) == 3) {
-            result = true;
+        fullName = dropBrackets(fullName);
+
+        result = wordCount(fullName) == 3;
+        if (result) {
+            result = isFirstLettersBig(fullName);
         }
 
         return result;
     }
 
-
+    public boolean isFirstLettersBig(String fullName) {
+        boolean result = true;
+        StringTokenizer stringTokenizer = new StringTokenizer(fullName);
+        while (stringTokenizer.hasMoreTokens()) {
+            if (Character.getType(stringTokenizer.nextToken().charAt(0)) == Character.LOWERCASE_LETTER) {
+                result = false;
+            }
+        }
+        return result;
+    }
 
 
 }
