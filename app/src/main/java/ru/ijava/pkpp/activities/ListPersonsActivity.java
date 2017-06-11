@@ -1,4 +1,4 @@
-package ru.ijava.pkpp;
+package ru.ijava.pkpp.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -18,11 +18,12 @@ import android.widget.Toast;
 import java.util.Collections;
 import java.util.Comparator;
 
+import ru.ijava.pkpp.R;
 import ru.ijava.pkpp.db.SQLiteHelper;
 import ru.ijava.pkpp.model.ListPersons;
 import ru.ijava.pkpp.model.Person;
 import ru.ijava.pkpp.utils.ExportTask;
-import ru.ijava.pkpp.utils.PersonParser;
+import ru.ijava.pkpp.utils.SynchronizeDbTask;
 
 /**
  * Created by rele on 5/26/17.
@@ -60,19 +61,19 @@ public class ListPersonsActivity extends AppCompatActivity {
                 }
         );
 
-        ListView listPersonsView = (ListView) findViewById(R.id.listPersonsView);
-        listPersonsView.setAdapter(listPersons);
-        listPersonsView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Person selectedPerson = (Person) listPersons.getItem(position);
-                        Intent intent = new Intent(getApplicationContext(), PersonActivity.class);
-                        intent.putExtra(PersonActivity.SELECTED_PERSON, selectedPerson);
-                        startActivity(intent);
-                    }
-                }
-        );
+//        ListView listPersonsView = (ListView) findViewById(R.id.listPersonsView);
+//        listPersonsView.setAdapter(listPersons);
+//        listPersonsView.setOnItemClickListener(
+//                new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                        Person selectedPerson = (Person) listPersons.getItem(position);
+//                        Intent intent = new Intent(getApplicationContext(), PersonActivity.class);
+//                        intent.putExtra(PersonActivity.SELECTED_PERSON, selectedPerson);
+//                        startActivity(intent);
+//                    }
+//                }
+//        );
     }
 
     @Override

@@ -1,4 +1,4 @@
-package ru.ijava.pkpp;
+package ru.ijava.pkpp.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ru.ijava.pkpp.R;
 import ru.ijava.pkpp.model.Person;
 
 /**
