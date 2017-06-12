@@ -1,12 +1,16 @@
 package ru.ijava.pkpp.activities;
 
 import android.Manifest;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +24,7 @@ import java.util.Comparator;
 
 import ru.ijava.pkpp.R;
 import ru.ijava.pkpp.db.SQLiteHelper;
+import ru.ijava.pkpp.fragments.ListPersonsFragment;
 import ru.ijava.pkpp.model.ListPersons;
 import ru.ijava.pkpp.model.Person;
 import ru.ijava.pkpp.utils.ExportTask;
@@ -61,6 +66,25 @@ public class ListPersonsActivity extends AppCompatActivity {
                 }
         );
 
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        ListPersonsFragment listPersonsFragment = new ListPersonsFragment();
+        if (listPersons != null) {
+
+            Log.i("RELE", "listPerson is not null");
+            Bundle bundle;
+            bundle = new Bundle();
+            bundle.putSerializable(ListPersonsFragment.KEY_LIST_PERSON, listPersons);
+            listPersonsFragment.setArguments(bundle);
+        }
+        fragmentTransaction.add(R.id.listPersonsFragment, listPersonsFragment);
+        fragmentTransaction.commit();
+
+
+
+
 //        ListView listPersonsView = (ListView) findViewById(R.id.listPersonsView);
 //        listPersonsView.setAdapter(listPersons);
 //        listPersonsView.setOnItemClickListener(
@@ -74,6 +98,10 @@ public class ListPersonsActivity extends AppCompatActivity {
 //                    }
 //                }
 //        );
+
+
+
+
     }
 
     @Override

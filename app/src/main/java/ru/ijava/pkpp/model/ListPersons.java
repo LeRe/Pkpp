@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import ru.ijava.pkpp.R;
@@ -19,7 +20,9 @@ import ru.ijava.pkpp.utils.PersonParser;
 /**
  * Created by rele on 5/21/17.
  */
-public class ListPersons implements ListAdapter {
+public class ListPersons implements ListAdapter, Serializable {
+    static final long serialVersionUID = 1L;
+
     Context mContext;
     public void setContext(Context context)
     {

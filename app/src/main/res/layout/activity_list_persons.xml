@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ListView
-        android:id="@+id/listPersonsView"
+    <fragment android:name="ru.ijava.pkpp.fragments.ListPersonsFragment"
+        android:id="@+id/listPersonsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
