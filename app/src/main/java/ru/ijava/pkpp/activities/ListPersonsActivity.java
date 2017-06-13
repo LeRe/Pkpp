@@ -54,19 +54,6 @@ public class ListPersonsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_persons);
 
-        SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
-        listPersons = sqLiteHelper.getAllPersons();
-
-        Collections.sort(listPersons.getPersons(),
-                new Comparator<Person>() {
-                    @Override
-                    public int compare(Person o1, Person o2) {
-                        return o1.getFullName().compareTo(o2.getFullName());
-                    }
-                }
-        );
-
-
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
