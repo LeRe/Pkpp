@@ -13,6 +13,7 @@ import android.widget.ListView;
 import ru.ijava.pkpp.R;
 import ru.ijava.pkpp.activities.PersonActivity;
 import ru.ijava.pkpp.model.ListPersons;
+import ru.ijava.pkpp.model.ListPersonsAdapter;
 import ru.ijava.pkpp.model.Person;
 
 /**
@@ -20,27 +21,12 @@ import ru.ijava.pkpp.model.Person;
  */
 
 public class ListPersonsFragment extends ListFragment {
-    public static final String KEY_LIST_PERSON = "keyListPerson";
-
-    ListPersons listPersons;
-
-    public ListPersonsFragment() {
-        Bundle bundle = getArguments();
-
-        if (bundle != null && bundle.containsKey(KEY_LIST_PERSON)) {
-            listPersons = (ListPersons) bundle.getSerializable(KEY_LIST_PERSON);
-        }
-        else {
-            listPersons = new ListPersons();
-        }
-    }
-
+    ListPersonsAdapter listPersonsAdapter;
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
-        Person selectedPerson = (Person) listPersons.getItem(position);
+        Person selectedPerson = (Person) listPersonsAdapter.getItem(position);
         Intent intent = new Intent(getActivity(), PersonActivity.class);
         intent.putExtra(PersonActivity.SELECTED_PERSON, selectedPerson);
         startActivity(intent);
@@ -50,7 +36,8 @@ public class ListPersonsFragment extends ListFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setListAdapter(listPersons);
+        listPersonsAdapter = new ListPersonsAdapter(getActivity().getBaseContext());
+        setListAdapter(listPersonsAdapter);
     }
 
 }

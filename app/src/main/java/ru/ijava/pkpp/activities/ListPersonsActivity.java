@@ -1,32 +1,21 @@
 package ru.ijava.pkpp.activities;
 
 import android.Manifest;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
-
-import java.util.Collections;
-import java.util.Comparator;
-
 import ru.ijava.pkpp.R;
 import ru.ijava.pkpp.db.SQLiteHelper;
 import ru.ijava.pkpp.fragments.ListPersonsFragment;
 import ru.ijava.pkpp.model.ListPersons;
-import ru.ijava.pkpp.model.Person;
 import ru.ijava.pkpp.utils.ExportTask;
 import ru.ijava.pkpp.utils.SynchronizeDbTask;
 
@@ -46,49 +35,20 @@ import ru.ijava.pkpp.utils.SynchronizeDbTask;
  *
  */
 public class ListPersonsActivity extends AppCompatActivity {
-    private ListPersons listPersons;
     private final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+    ListPersons listPersons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_persons);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        ListPersonsFragment listPersonsFragment = new ListPersonsFragment();
-        if (listPersons != null) {
-
-            Log.i("RELE", "listPerson is not null");
-            Bundle bundle;
-            bundle = new Bundle();
-            bundle.putSerializable(ListPersonsFragment.KEY_LIST_PERSON, listPersons);
-            listPersonsFragment.setArguments(bundle);
-        }
-        fragmentTransaction.add(R.id.listPersonsFragment, listPersonsFragment);
-        fragmentTransaction.commit();
-
-
-
-
-//        ListView listPersonsView = (ListView) findViewById(R.id.listPersonsView);
-//        listPersonsView.setAdapter(listPersons);
-//        listPersonsView.setOnItemClickListener(
-//                new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        Person selectedPerson = (Person) listPersons.getItem(position);
-//                        Intent intent = new Intent(getApplicationContext(), PersonActivity.class);
-//                        intent.putExtra(PersonActivity.SELECTED_PERSON, selectedPerson);
-//                        startActivity(intent);
-//                    }
-//                }
-//        );
-
-
-
-
+//    Создает дубль, не нужно это, фрагмент уже вставляется через XML
+//        FragmentManager fragmentManager = getFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        ListPersonsFragment listPersonsFragment = new ListPersonsFragment();
+//        fragmentTransaction.add(R.id.listPersonsFragment, listPersonsFragment);
+//        fragmentTransaction.commit();
     }
 
     @Override
@@ -115,7 +75,7 @@ public class ListPersonsActivity extends AppCompatActivity {
                             PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
                 }
                 else {
-                    (new ExportTask(this)).execute(listPersons);
+                    runExportTask();
                 }
                 return true;
             case R.id.settings:
@@ -134,10 +94,18 @@ public class ListPersonsActivity extends AppCompatActivity {
             case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    (new ExportTask(this)).execute(listPersons);
+                    runExportTask();
                 }
                 return;
             }
         }
+    }
+
+    private void runExportTask() {
+        if (listPersons == null) {
+            SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
+            listPersons = sqLiteHelper.getAllPersons();
+        }
+        (new ExportTask(this)).execute(listPersons);
     }
 }
