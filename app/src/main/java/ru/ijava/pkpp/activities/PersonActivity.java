@@ -1,17 +1,8 @@
 package ru.ijava.pkpp.activities;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.PhoneNumberUtils;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import ru.ijava.pkpp.R;
 import ru.ijava.pkpp.fragments.PersonFragment;
@@ -40,7 +31,7 @@ public class PersonActivity extends AppCompatActivity {
 
         getFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragment_container, personFragment)
+                .add(R.id.fragment_container_person, personFragment)
                 .commit();
     }
 }

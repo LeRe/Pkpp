@@ -4,6 +4,4 @@
         android:title="@string/synchronize_db" />
     <item android:id="@+id/export_files"
         android:title="@string/export_files" />
-    <item android:id="@+id/settings"
-        android:title="@string/settings" />
 </menu>

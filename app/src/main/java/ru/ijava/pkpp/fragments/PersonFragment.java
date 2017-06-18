@@ -2,6 +2,7 @@ package ru.ijava.pkpp.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,8 +36,12 @@ public class PersonFragment extends Fragment {
             TextView fio = (TextView) view.findViewById(R.id.fio);
             fio.setText(person.getFullName());
 
-            TextView position = (TextView) view.findViewById(R.id.position);
-            position.setText(person.getPosition());
+            int orientation = getActivity().getResources().getConfiguration().orientation;
+            if (orientation == Configuration.ORIENTATION_PORTRAIT)
+            {
+                TextView position = (TextView) view.findViewById(R.id.position);
+                position.setText(person.getPosition());
+            }
 
             TextView phone = (TextView) view.findViewById(R.id.phone);
             phone.setText(person.getPhone());

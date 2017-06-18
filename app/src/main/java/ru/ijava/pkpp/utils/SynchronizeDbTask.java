@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import ru.ijava.pkpp.activities.ListPersonsActivity;
 import ru.ijava.pkpp.db.MySqlHelper;
 import ru.ijava.pkpp.db.SQLiteHelper;
 import ru.ijava.pkpp.model.ListPersons;
@@ -38,5 +39,7 @@ public class SynchronizeDbTask extends AsyncTask<Object, Object, String> {
     protected void onPostExecute(String log)
     {
         Toast.makeText(mContext, log,Toast.LENGTH_SHORT).show();
+        ListPersonsActivity listPersonsActivity = (ListPersonsActivity) mContext;
+        listPersonsActivity.updateListPersonFragment();
     }
 }
