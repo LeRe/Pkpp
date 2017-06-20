@@ -81,7 +81,18 @@ public class ExportTask  extends AsyncTask<ListPersons, Object, String> {
         for (Person person : listPersons.getPersons()) {
             if (person.getFullName().equals(null)) continue; //TODO пропускает пользователей с незаполненным полным именем, это не правильно
 
-            strCSV.append("\"" + person.getFullName() + "\",");
+            // out name
+            PersonParser pp = new PersonParser(person.getFullName());
+            if (pp.isCorrectNameSurnamePatronymic()) {
+                String name = pp.getName() + " " + pp.getPatronymic() + " " + pp.getSurname();
+
+                strCSV.append("\"" + name + "\",");
+            }
+            else {
+                strCSV.append("\"" + person.getFullName() + "\",");
+            }
+
+            // out phone
             if (person.getPhone() != null && person.getPhone().trim().length() > 0)
                 strCSV.append("\"" + person.getPhone() + "\",");
             else

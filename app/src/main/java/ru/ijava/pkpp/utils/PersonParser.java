@@ -36,16 +36,31 @@ public class PersonParser {
         return stringTokenizer.countTokens();
     }
 
+    public String getSurname() {
+        checkNullFullName();
+        return getSurname(this.fullName);
+    }
+
     public String getSurname(String fullName) {
         StringTokenizer stringTokenizer = new StringTokenizer(fullName);
 
         return stringTokenizer.nextToken();
     }
 
+    public String getName() {
+        checkNullFullName();
+        return getName(this.fullName);
+    }
+
     public String getName(String fullName) {
         StringTokenizer stringTokenizer = new StringTokenizer(fullName);
         stringTokenizer.nextToken();
         return stringTokenizer.nextToken();
+    }
+
+    public String getPatronymic() {
+        checkNullFullName();
+        return getPatronymic(this.fullName);
     }
 
     public String getPatronymic(String fullName) {
@@ -113,5 +128,10 @@ public class PersonParser {
         return result;
     }
 
+    private void checkNullFullName() {
+        if (this.fullName == null) {
+            this.fullName = "Полное Имя Пустое";
+        }
+    }
 
 }
